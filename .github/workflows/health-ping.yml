@@ -1,0 +1,15 @@
+name: Supabase Health Ping
+
+on:
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping site health endpoint
+        run: |
+          curl -f -H "x-health-secret: ${{ secrets.HEALTH_PING_SECRET }}" \
+            "${{ secrets.SITE_URL }}/api/health"
