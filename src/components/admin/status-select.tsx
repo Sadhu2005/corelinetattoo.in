@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 interface StatusSelectProps {
   id: string;
   status: string;
-  type: "portrait" | "tattoo";
+  type: "portrait" | "tattoo" | "class";
 }
 
 export function StatusSelect({ id, status, type }: StatusSelectProps) {

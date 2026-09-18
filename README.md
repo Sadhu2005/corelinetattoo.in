@@ -1,114 +1,62 @@
-# Coreline Art & Tattoo Booking Platform
+# Coreline Studio
 
-Dark luxury booking website for portrait sketches, blood art, and custom tattoos. Built with Next.js, Supabase, and Vercel — **100% free tier**.
+Mobile-first multi-service studio site: **Tattoo · Drawing & Art · Zumba & Dance**.
 
-## Features (V1)
+Book or inquire on **WhatsApp only** — no online payments. Built with Next.js, Supabase, and Vercel (free tier).
 
-- Home page with hero, stats, recent work, reviews
-- Gallery & tattoo design catalog (Pinterest-style)
-- Portrait order form with photo upload
-- Tattoo booking with calendar
-- WhatsApp integration for instant orders
-- Instagram embeds & follow links
-- Admin panel for orders, bookings, content
+Instagram: [@coreline__studios](https://www.instagram.com/coreline__studios/)
 
-## Tech Stack
+## Features
 
-- **Next.js 16** (App Router) + TypeScript
-- **Tailwind CSS** + shadcn/ui + Framer Motion
-- **Supabase** (Postgres, Auth, Storage)
-- **Vercel** hosting (free)
+- Services hub (Tattoo / Art / Zumba)
+- Portrait pricing & orders → WhatsApp
+- Tattoo booking → WhatsApp
+- Zumba class booking & inquiries → WhatsApp
+- Admin leads inbox (orders, bookings, classes, inquiries)
+- Instagram embeds (paste reel URLs in Admin)
+- Mobile sticky CTA: Call | WhatsApp | Book
+- Location SEO pages (Hassan / Bengaluru)
 
-## Quick Start
+## Stack
 
-### 1. Clone & install
+- Next.js 16 + TypeScript + Tailwind + shadcn/ui + Framer Motion
+- Supabase (Postgres, Auth, Storage)
+- Vercel hosting + GitHub Actions CI
+
+## Setup
 
 ```bash
-git clone https://github.com/Sadhu2005/corelinetattoo.in.git
-cd corelinetattoo.in
 npm install
-```
-
-### 2. Supabase setup (free)
-
-1. Create a project at [supabase.com](https://supabase.com)
-2. Run the SQL in `supabase/migrations/001_initial.sql` in the SQL Editor
-3. Create Storage buckets: `portfolio`, `designs`, `uploads`, `testimonials` (public except `uploads`)
-4. Create an admin user in Authentication → Users
-5. Insert admin profile: `INSERT INTO profiles (id, role, full_name) VALUES ('<user-uuid>', 'admin', 'Your Name');`
-
-### 3. Environment variables
-
-Copy `.env.example` to `.env.local` and fill in values:
-
-```bash
 cp .env.example .env.local
-```
-
-### 4. Run locally
-
-```bash
+# fill Supabase + WhatsApp env vars
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+### Supabase
 
-## Deploy to Vercel (CI/CD)
+Run SQL in order:
 
-This repo uses **GitHub + Vercel** for automatic deployments:
+1. `supabase/migrations/001_initial.sql`
+2. `supabase/migrations/002_storage.sql`
+3. `supabase/migrations/003_multiservice.sql`
 
-| Event | What happens |
-|-------|----------------|
-| Push to `main` | Vercel deploys **production** automatically |
-| Pull request | Vercel creates a **preview** URL |
-| Push / PR | GitHub Actions runs **lint + build** (`.github/workflows/ci.yml`) |
+Create admin user in Auth, then:
 
-### One-time Vercel setup
+```sql
+INSERT INTO profiles (id, role, full_name) VALUES ('<user-uuid>', 'admin', 'Coreline Admin');
+```
 
-1. Push this repo to GitHub (see below)
-2. [vercel.com](https://vercel.com) → **Add New Project** → import `Sadhu2005/corelinetattoo.in`
-3. Framework: **Next.js** (auto-detected)
-4. Add **Environment Variables** (copy from `.env.example` / your `.env.local`):
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY`
-   - `NEXT_PUBLIC_STUDIO_NAME`
-   - `NEXT_PUBLIC_WHATSAPP_NUMBER`
-   - `NEXT_PUBLIC_PHONE`
-   - `NEXT_PUBLIC_ADDRESS`
-   - `HEALTH_PING_SECRET` (optional, for weekly Supabase ping)
-5. Click **Deploy**
+### Instagram reels
 
-After that, every `git push origin main` redeploys the live site — no manual steps.
+Admin → Instagram → paste post/reel URLs from [@coreline__studios](https://www.instagram.com/coreline__studios/) and pick Home / Tattoo / Art / Zumba.
 
-### Optional: GitHub Action secrets (health ping)
+## Deploy
 
-In GitHub → **Settings → Secrets → Actions**, add:
-
-- `SITE_URL` — e.g. `https://corelinetattoo.in.vercel.app`
-- `HEALTH_PING_SECRET` — same value as in Vercel env
-
-This keeps Supabase active via `.github/workflows/health-ping.yml`.
-
-## Admin Panel
-
-Visit `/admin/login` with your Supabase admin credentials.
+Push to `main` → GitHub CI + Vercel auto-deploy. Set env vars in Vercel (see `.env.example`).
 
 ## Cost
 
-| Service | Cost |
-|---------|------|
-| GitHub | ₹0 |
-| Vercel | ₹0 |
-| Supabase | ₹0 (free forever, not a trial) |
-| Custom domain (optional) | ₹500–1000/year |
-
-## Phase 2 (coming soon)
-
-- Virtual tattoo try-on
-- Order tracking page
-- AI tattoo generator
-- Customer accounts
+₹0/month on free tiers (GitHub + Vercel + Supabase). Optional domain later.
 
 ## License
 

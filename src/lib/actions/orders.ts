@@ -5,10 +5,14 @@ import { createClient } from "@/lib/supabase/server";
 import {
   portraitOrderSchema,
   tattooBookingSchema,
+  classBookingSchema,
+  inquirySchema,
   type PortraitOrderInput,
   type TattooBookingInput,
+  type ClassBookingInput,
+  type InquiryInput,
 } from "@/lib/validations/forms";
-import { whatsappUrl } from "@/lib/constants/site";
+import { whatsappUrl, waMessages } from "@/lib/constants/site";
 
 function generateNumber(prefix: string) {
   const date = new Date();
@@ -82,8 +86,17 @@ export async function submitPortraitOrder(
   }
 
   revalidatePath("/admin/orders");
+  revalidatePath("/admin/leads");
 
-  const message = `Hi! I'd like to order a portrait.\n\nOrder: ${orderNumber}\nName: ${parsed.data.customer_name}\nPhone: ${parsed.data.phone}\nStyle: ${parsed.data.style}\nSize: ${parsed.data.size}\nFrame: ${parsed.data.frame}\nDelivery: ${parsed.data.delivery_type}${parsed.data.notes ? `\nNotes: ${parsed.data.notes}` : ""}`;
+  const message = waMessages.artOrder({
+    name: parsed.data.customer_name,
+    phone: parsed.data.phone,
+    style: parsed.data.style,
+    size: parsed.data.size,
+    frame: parsed.data.frame,
+    delivery: parsed.data.delivery_type,
+    orderNumber,
+  });
 
   return {
     success: true as const,
@@ -131,8 +144,18 @@ export async function submitTattooBooking(
   }
 
   revalidatePath("/admin/bookings");
+  revalidatePath("/admin/leads");
 
-  const message = `Hi! I'd like to book a tattoo session.\n\nBooking: ${bookingNumber}\nName: ${parsed.data.customer_name}\nPhone: ${parsed.data.phone}\nDate: ${parsed.data.preferred_date}\nTime: ${parsed.data.preferred_time}\nPlacement: ${parsed.data.body_placement}\nSize: ${parsed.data.size}\nStyle: ${parsed.data.style}${parsed.data.notes ? `\nNotes: ${parsed.data.notes}` : ""}`;
+  const message = waMessages.tattooBook({
+    name: parsed.data.customer_name,
+    phone: parsed.data.phone,
+    date: parsed.data.preferred_date,
+    time: parsed.data.preferred_time,
+    placement: parsed.data.body_placement,
+    size: parsed.data.size,
+    style: parsed.data.style,
+    bookingNumber,
+  });
 
   return {
     success: true as const,
@@ -141,16 +164,130 @@ export async function submitTattooBooking(
   };
 }
 
+export async function submitClassBooking(data: ClassBookingInput) {
+  const parsed = classBookingSchema.safeParse(data);
+  if (!parsed.success) {
+    return { success: false as const, error: parsed.error.issues[0]?.message };
+  }
+
+  const bookingNumber = generateNumber("CLS");
+
+  if (
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  ) {
+    const supabase = await createClient();
+    const { error } = await supabase.from("class_bookings").insert({
+      booking_number: bookingNumber,
+      customer_name: parsed.data.customer_name,
+      phone: parsed.data.phone,
+      email: parsed.data.email || null,
+      class_type: parsed.data.class_type,
+      preferred_date: parsed.data.preferred_date,
+      preferred_time: parsed.data.preferred_time,
+      notes: parsed.data.notes || null,
+      status: "received",
+    });
+
+    if (error) {
+      return { success: false as const, error: error.message };
+    }
+  }
+
+  revalidatePath("/admin/classes");
+  revalidatePath("/admin/leads");
+
+  const message = waMessages.zumbaBook({
+    name: parsed.data.customer_name,
+    phone: parsed.data.phone,
+    classType: parsed.data.class_type,
+    date: parsed.data.preferred_date,
+    time: parsed.data.preferred_time,
+    bookingNumber,
+  });
+
+  return {
+    success: true as const,
+    bookingNumber,
+    whatsappLink: whatsappUrl(message),
+  };
+}
+
+export async function submitInquiry(data: InquiryInput) {
+  const parsed = inquirySchema.safeParse(data);
+  if (!parsed.success) {
+    return { success: false as const, error: parsed.error.issues[0]?.message };
+  }
+
+  const inquiryNumber = generateNumber("INQ");
+
+  if (
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  ) {
+    const supabase = await createClient();
+    const { error } = await supabase.from("inquiries").insert({
+      inquiry_number: inquiryNumber,
+      customer_name: parsed.data.customer_name,
+      phone: parsed.data.phone,
+      email: parsed.data.email || null,
+      service_pillar: parsed.data.service_pillar,
+      message: parsed.data.message,
+      status: "new",
+    });
+
+    if (error) {
+      return { success: false as const, error: error.message };
+    }
+  }
+
+  revalidatePath("/admin/inquiries");
+  revalidatePath("/admin/leads");
+
+  const message = waMessages.inquire({
+    name: parsed.data.customer_name,
+    phone: parsed.data.phone,
+    pillar: parsed.data.service_pillar,
+    message: parsed.data.message,
+  });
+
+  return {
+    success: true as const,
+    inquiryNumber,
+    whatsappLink: whatsappUrl(message),
+  };
+}
+
 export async function updateOrderStatus(
   id: string,
   status: string,
-  type: "portrait" | "tattoo"
+  type: "portrait" | "tattoo" | "class"
 ) {
   const supabase = await createClient();
-  const table = type === "portrait" ? "portrait_orders" : "tattoo_bookings";
+  const table =
+    type === "portrait"
+      ? "portrait_orders"
+      : type === "tattoo"
+        ? "tattoo_bookings"
+        : "class_bookings";
   const { error } = await supabase.from(table).update({ status }).eq("id", id);
   if (error) return { success: false as const, error: error.message };
-  revalidatePath(type === "portrait" ? "/admin/orders" : "/admin/bookings");
+  revalidatePath("/admin/orders");
+  revalidatePath("/admin/bookings");
+  revalidatePath("/admin/classes");
+  revalidatePath("/admin/leads");
+  return { success: true as const };
+}
+
+export async function updateInquiryStatus(id: string, status: string) {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("inquiries")
+    .update({ status })
+    .eq("id", id);
+  if (error) return { success: false as const, error: error.message };
+  revalidatePath("/admin/inquiries");
+  revalidatePath("/admin/leads");
   return { success: true as const };
 }
 
@@ -167,16 +304,26 @@ export async function adminLogout() {
   return { success: true as const };
 }
 
-export async function addInstagramEmbed(postUrl: string, accountHandle: string) {
+export async function addInstagramEmbed(
+  postUrl: string,
+  accountHandle: string,
+  mediaType: string = "post",
+  featuredOn: string = "home"
+) {
   const supabase = await createClient();
   const { error } = await supabase.from("instagram_embeds").insert({
     post_url: postUrl,
     account_handle: accountHandle,
+    media_type: mediaType,
+    featured_on: featuredOn,
     active: true,
     sort_order: 0,
   });
   if (error) return { success: false as const, error: error.message };
   revalidatePath("/");
+  revalidatePath("/tattoo");
+  revalidatePath("/art");
+  revalidatePath("/zumba");
   revalidatePath("/admin/instagram");
   return { success: true as const };
 }

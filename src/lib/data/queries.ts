@@ -7,6 +7,9 @@ import type {
   TattooDesign,
   Testimonial,
   PortraitOrder,
+  ClassBooking,
+  Inquiry,
+  InstagramFeaturedOn,
 } from "@/lib/types/database";
 
 const defaultStats: SiteStat[] = [
@@ -178,14 +181,31 @@ export async function getTestimonials(
   return data?.length ? data : defaultTestimonials;
 }
 
-export async function getInstagramEmbeds(): Promise<InstagramEmbed[]> {
-  if (!isSupabaseConfigured()) return [];
+export async function getInstagramEmbeds(
+  featuredOn?: InstagramFeaturedOn
+): Promise<InstagramEmbed[]> {
+  if (!isSupabaseConfigured()) {
+    return [
+      {
+        id: "seed-1",
+        post_url: "https://www.instagram.com/coreline__studios/",
+        account_handle: "coreline__studios",
+        sort_order: 0,
+        active: true,
+        created_at: new Date().toISOString(),
+        media_type: "reel",
+        featured_on: "home",
+      },
+    ];
+  }
   const supabase = await createClient();
-  const { data } = await supabase
+  let query = supabase
     .from("instagram_embeds")
     .select("*")
     .eq("active", true)
     .order("sort_order");
+  if (featuredOn) query = query.eq("featured_on", featuredOn);
+  const { data } = await query;
   return data ?? [];
 }
 
@@ -209,15 +229,41 @@ export async function getTattooBookings(): Promise<TattooBooking[]> {
   return data ?? [];
 }
 
+export async function getClassBookings(): Promise<ClassBooking[]> {
+  if (!isSupabaseConfigured()) return [];
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("class_bookings")
+    .select("*")
+    .order("created_at", { ascending: false });
+  return data ?? [];
+}
+
+export async function getInquiries(): Promise<Inquiry[]> {
+  if (!isSupabaseConfigured()) return [];
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("inquiries")
+    .select("*")
+    .order("created_at", { ascending: false });
+  return data ?? [];
+}
+
 export async function getDashboardCounts() {
-  const [orders, bookings] = await Promise.all([
+  const [orders, bookings, classes, inquiries] = await Promise.all([
     getPortraitOrders(),
     getTattooBookings(),
+    getClassBookings(),
+    getInquiries(),
   ]);
   return {
     pendingOrders: orders.filter((o) => o.status === "received").length,
     pendingBookings: bookings.filter((b) => b.status === "received").length,
+    pendingClasses: classes.filter((c) => c.status === "received").length,
+    newInquiries: inquiries.filter((i) => i.status === "new").length,
     totalOrders: orders.length,
     totalBookings: bookings.length,
+    totalClasses: classes.length,
+    totalInquiries: inquiries.length,
   };
 }

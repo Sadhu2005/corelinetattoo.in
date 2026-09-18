@@ -18,18 +18,20 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | Tattoo & Portrait Artist Karnataka`,
+    default: `${siteConfig.name} | Tattoo · Art · Zumba Karnataka`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
-    "Tattoo Artist Mysore",
-    "Tattoo Artist Coorg",
-    "Tattoo Studio Karnataka",
+    "Coreline Studio",
+    "Tattoo Artist Hassan",
+    "Tattoo Artist Bengaluru",
+    "Zumba Classes Karnataka",
     "Portrait Artist Karnataka",
     "Blood Art Portrait India",
-    "Custom Sketch Artist India",
+    "Dance Fitness Hassan",
   ],
+  manifest: "/manifest.webmanifest",
   openGraph: {
     type: "website",
     locale: "en_IN",
@@ -44,6 +46,11 @@ export const metadata: Metadata = {
     description: siteConfig.description,
   },
   robots: { index: true, follow: true },
+  appleWebApp: {
+    capable: true,
+    title: siteConfig.name,
+    statusBarStyle: "black-translucent",
+  },
 };
 
 export default function RootLayout({
@@ -52,7 +59,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${bebas.variable} ${inter.variable} dark`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${bebas.variable} ${inter.variable} dark`}
+    >
       <body className="min-h-screen font-[family-name:var(--font-inter)] antialiased">
         {children}
         <Toaster richColors position="top-center" />

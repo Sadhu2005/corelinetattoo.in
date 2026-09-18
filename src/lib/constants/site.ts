@@ -1,10 +1,10 @@
 export const siteConfig = {
-  name: process.env.NEXT_PUBLIC_STUDIO_NAME ?? "Ashwath Artist",
+  name: process.env.NEXT_PUBLIC_STUDIO_NAME ?? "Coreline Studio",
   tagline:
     process.env.NEXT_PUBLIC_STUDIO_TAGLINE ??
     "From Imagination to Skin & Canvas",
   description:
-    "Blood art, pencil sketches, color portraits & custom tattoos by Ashwath Artist. Karnataka — courier available across India.",
+    "Coreline Studio — tattoos, custom portraits & drawings, and Zumba dance classes in Karnataka. Book or inquire on WhatsApp.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://corelinetattoo.in.vercel.app",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "918494958165",
   phone: process.env.NEXT_PUBLIC_PHONE ?? "+91 84949 58165",
@@ -15,8 +15,101 @@ export const siteConfig = {
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.0!2d76.6394!3d12.2958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDE3JzQ0LjkiTiA3NsKwMzgnMjEuOCJF!5e0!3m2!1sen!2sin!4v1",
 } as const;
 
+/** Service pillars for Coreline Studio */
+export const servicePillars = [
+  {
+    id: "tattoo",
+    title: "Tattoo",
+    href: "/tattoo",
+    short: "Custom ink, designs & sessions",
+    description:
+      "Minimal, anime, religious, sleeves and custom tattoos. Book a session — pricing finalized on WhatsApp.",
+    cta: "Book Tattoo",
+    ctaHref: "/tattoo/book",
+  },
+  {
+    id: "art",
+    title: "Drawing & Art",
+    href: "/art",
+    short: "Blood art, sketches & paintings",
+    description:
+      "Blood art, pencil sketches and color portraits. Order online — courier available. Discuss details on WhatsApp.",
+    cta: "Order Portrait",
+    ctaHref: "/art/order",
+  },
+  {
+    id: "zumba",
+    title: "Zumba & Dance",
+    href: "/zumba",
+    short: "Fitness dance classes",
+    description:
+      "Zumba and dance fitness classes. Book a spot or inquire — fees and timings confirmed on WhatsApp.",
+    cta: "Book Class",
+    ctaHref: "/zumba/book",
+  },
+] as const;
+
+export type ServicePillarId = (typeof servicePillars)[number]["id"];
+
+/** Display-only Zumba / dance offerings (fees discussed on WhatsApp) */
+export const zumbaClasses = [
+  {
+    id: "zumba-morning",
+    name: "Zumba Morning Batch",
+    level: "All levels",
+    schedule: "Mon · Wed · Fri — 7:00 AM",
+    duration: "45–60 min",
+    feeNote: "Monthly fee on request",
+  },
+  {
+    id: "zumba-evening",
+    name: "Zumba Evening Batch",
+    level: "All levels",
+    schedule: "Mon · Wed · Fri — 6:30 PM",
+    duration: "45–60 min",
+    feeNote: "Monthly fee on request",
+  },
+  {
+    id: "dance-fitness",
+    name: "Dance Fitness",
+    level: "Beginner friendly",
+    schedule: "Tue · Thu — 6:00 PM",
+    duration: "45 min",
+    feeNote: "Trial class available — ask on WhatsApp",
+  },
+  {
+    id: "weekend-zumba",
+    name: "Weekend Zumba",
+    level: "All levels",
+    schedule: "Saturday — 9:00 AM",
+    duration: "60 min",
+    feeNote: "Drop-in option — ask on WhatsApp",
+  },
+] as const;
+
+/** Weekly schedule for Premium UI */
+export const zumbaWeeklySchedule = [
+  { day: "Monday", slots: ["7:00 AM Zumba", "6:30 PM Zumba"] },
+  { day: "Tuesday", slots: ["6:00 PM Dance Fitness"] },
+  { day: "Wednesday", slots: ["7:00 AM Zumba", "6:30 PM Zumba"] },
+  { day: "Thursday", slots: ["6:00 PM Dance Fitness"] },
+  { day: "Friday", slots: ["7:00 AM Zumba", "6:30 PM Zumba"] },
+  { day: "Saturday", slots: ["9:00 AM Weekend Zumba"] },
+  { day: "Sunday", slots: ["Rest / private sessions on request"] },
+] as const;
+
+/** Placeholder IG URLs — replace in Admin with real @coreline__studios reels */
+export const seedInstagramUrls = [
+  {
+    post_url: "https://www.instagram.com/coreline__studios/",
+    account_handle: "coreline__studios",
+    media_type: "reel" as const,
+    featured_on: "home" as const,
+  },
+];
+
 export const bloodArtNote =
-  "For blood art portraits, please provide 5ml blood in a purple tube. We will guide you on collection after you order.";
+  "For blood art portraits, please provide 5ml blood in a purple tube. We will guide you on collection after you order via WhatsApp.";
 
 export const portraitProducts = [
   {
@@ -84,7 +177,7 @@ export const portraitProducts = [
   },
   {
     id: "custom-creative",
-    label: "Custom Creative Painting — price on request",
+    label: "Custom Creative Painting — discuss on WhatsApp",
     priceInr: null,
     style: "Custom Creative",
     size: "Custom",
@@ -126,6 +219,11 @@ export function formatInr(amount: number) {
 
 export const instagramAccounts = [
   {
+    handle: "coreline__studios",
+    url: "https://www.instagram.com/coreline__studios/",
+    label: "Coreline Studio",
+  },
+  {
     handle: "coreline_art_and_tattoo",
     url: "https://www.instagram.com/coreline_art_and_tattoo/",
     label: "Coreline Art & Tattoo",
@@ -139,10 +237,11 @@ export const instagramAccounts = [
 
 export const navLinks = [
   { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/tattoo", label: "Tattoo" },
+  { href: "/art", label: "Art" },
+  { href: "/zumba", label: "Zumba" },
   { href: "/gallery", label: "Gallery" },
-  { href: "/tattoo-gallery", label: "Tattoo Designs" },
-  { href: "/order-portrait", label: "Order Portrait" },
-  { href: "/book-tattoo", label: "Book Tattoo" },
   { href: "/reviews", label: "Reviews" },
   { href: "/contact", label: "Contact" },
 ] as const;
@@ -190,6 +289,8 @@ export const tattooCategories = [
 ] as const;
 
 export const timeSlots = [
+  "7:00 AM",
+  "9:00 AM",
   "10:00 AM",
   "11:00 AM",
   "12:00 PM",
@@ -198,16 +299,88 @@ export const timeSlots = [
   "4:00 PM",
   "5:00 PM",
   "6:00 PM",
+  "6:30 PM",
+] as const;
+
+export const classTypes = [
+  "Zumba Morning Batch",
+  "Zumba Evening Batch",
+  "Dance Fitness",
+  "Weekend Zumba",
+  "Other / Private",
 ] as const;
 
 export const orderStatuses = [
-  { value: "received", label: "Order Received" },
+  { value: "received", label: "Received" },
   { value: "in_progress", label: "In Progress" },
   { value: "completed", label: "Completed" },
   { value: "delivered", label: "Delivered" },
+] as const;
+
+export const inquiryStatuses = [
+  { value: "new", label: "New" },
+  { value: "contacted", label: "Contacted" },
+  { value: "closed", label: "Closed" },
 ] as const;
 
 export function whatsappUrl(message: string) {
   const encoded = encodeURIComponent(message);
   return `https://wa.me/${siteConfig.whatsapp}?text=${encoded}`;
 }
+
+export function telHref() {
+  return `tel:${siteConfig.phone.replace(/\s/g, "")}`;
+}
+
+/** Unified WhatsApp message templates — no payment language */
+export const waMessages = {
+  general: () =>
+    `Hi ${siteConfig.name}! I'd like to know more about your services (Tattoo / Art / Zumba).`,
+  tattooBook: (data: {
+    name: string;
+    phone: string;
+    date: string;
+    time: string;
+    placement: string;
+    size: string;
+    style: string;
+    bookingNumber?: string;
+  }) =>
+    `Hi ${siteConfig.name}! I want to book a tattoo session.\n\n` +
+    `${data.bookingNumber ? `Booking: ${data.bookingNumber}\n` : ""}` +
+    `Name: ${data.name}\nPhone: ${data.phone}\nDate: ${data.date}\nTime: ${data.time}\n` +
+    `Placement: ${data.placement}\nSize: ${data.size}\nStyle: ${data.style}\n\nPlease confirm details on WhatsApp.`,
+  artOrder: (data: {
+    name: string;
+    phone: string;
+    style: string;
+    size: string;
+    frame: string;
+    delivery: string;
+    orderNumber?: string;
+  }) =>
+    `Hi ${siteConfig.name}! I want to order a portrait.\n\n` +
+    `${data.orderNumber ? `Order: ${data.orderNumber}\n` : ""}` +
+    `Name: ${data.name}\nPhone: ${data.phone}\nStyle: ${data.style}\n` +
+    `Size: ${data.size}\nFrame: ${data.frame}\nDelivery: ${data.delivery}\n\nPlease confirm on WhatsApp.`,
+  zumbaBook: (data: {
+    name: string;
+    phone: string;
+    classType: string;
+    date: string;
+    time: string;
+    bookingNumber?: string;
+  }) =>
+    `Hi ${siteConfig.name}! I want to book a Zumba / dance class.\n\n` +
+    `${data.bookingNumber ? `Booking: ${data.bookingNumber}\n` : ""}` +
+    `Name: ${data.name}\nPhone: ${data.phone}\nClass: ${data.classType}\n` +
+    `Preferred date: ${data.date}\nTime: ${data.time}\n\nPlease confirm fees & seat on WhatsApp.`,
+  inquire: (data: {
+    name: string;
+    phone: string;
+    pillar: string;
+    message: string;
+  }) =>
+    `Hi ${siteConfig.name}! Inquiry about ${data.pillar}.\n\n` +
+    `Name: ${data.name}\nPhone: ${data.phone}\n\n${data.message}\n\nPlease call or reply on WhatsApp.`,
+} as const;

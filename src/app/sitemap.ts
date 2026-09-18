@@ -5,12 +5,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
   const routes = [
     "",
+    "/services",
+    "/tattoo",
+    "/tattoo/book",
+    "/tattoo/designs",
+    "/art",
+    "/art/order",
+    "/zumba",
+    "/zumba/book",
+    "/zumba/inquire",
     "/gallery",
-    "/tattoo-gallery",
-    "/order-portrait",
-    "/book-tattoo",
     "/reviews",
     "/contact",
+    "/locations/hassan",
+    "/locations/bengaluru",
   ];
 
   return routes.map((route) => ({

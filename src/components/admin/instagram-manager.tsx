@@ -22,11 +22,13 @@ export function InstagramManager({ embeds }: { embeds: InstagramEmbed[] }) {
   const [isPending, startTransition] = useTransition();
   const [postUrl, setPostUrl] = useState("");
   const [handle, setHandle] = useState(instagramAccounts[0].handle);
+  const [mediaType, setMediaType] = useState("reel");
+  const [featuredOn, setFeaturedOn] = useState("home");
 
   function handleAdd() {
     if (!postUrl) return;
     startTransition(async () => {
-      await addInstagramEmbed(postUrl, handle);
+      await addInstagramEmbed(postUrl, handle, mediaType, featuredOn);
       setPostUrl("");
     });
   }
@@ -39,19 +41,20 @@ export function InstagramManager({ embeds }: { embeds: InstagramEmbed[] }) {
 
   return (
     <div>
-      <Card className="border-border mb-8">
+      <Card className="mb-8 border-border">
         <CardContent className="space-y-4 p-6">
-          <h2 className="font-semibold">Add Instagram Post</h2>
+          <h2 className="font-semibold">Add Instagram Post / Reel</h2>
           <p className="text-sm text-muted-foreground">
-            Paste a post URL from Instagram to feature on the homepage
+            Paste a post or reel URL from @coreline__studios (or other accounts).
+            Embeds show on home and service pages.
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
-              <Label>Post URL</Label>
+            <div className="space-y-2 sm:col-span-2">
+              <Label>Post / Reel URL</Label>
               <Input
                 value={postUrl}
                 onChange={(e) => setPostUrl(e.target.value)}
-                placeholder="https://www.instagram.com/p/..."
+                placeholder="https://www.instagram.com/reel/..."
               />
             </div>
             <div className="space-y-2">
@@ -69,6 +72,36 @@ export function InstagramManager({ embeds }: { embeds: InstagramEmbed[] }) {
                 </SelectContent>
               </Select>
             </div>
+            <div className="space-y-2">
+              <Label>Type</Label>
+              <Select value={mediaType} onValueChange={(v) => v && setMediaType(v)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="reel">Reel</SelectItem>
+                  <SelectItem value="post">Post</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label>Show on</Label>
+              <Select
+                value={featuredOn}
+                onValueChange={(v) => v && setFeaturedOn(v)}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="home">Home</SelectItem>
+                  <SelectItem value="tattoo">Tattoo</SelectItem>
+                  <SelectItem value="art">Art</SelectItem>
+                  <SelectItem value="zumba">Zumba</SelectItem>
+                  <SelectItem value="gallery">Gallery</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
           <Button onClick={handleAdd} disabled={isPending}>
             Add Embed
@@ -79,6 +112,9 @@ export function InstagramManager({ embeds }: { embeds: InstagramEmbed[] }) {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {embeds.map((embed) => (
           <div key={embed.id} className="relative">
+            <p className="mb-2 text-xs text-muted-foreground">
+              {embed.featured_on ?? "home"} · {embed.media_type ?? "post"}
+            </p>
             <InstagramEmbedCard
               postUrl={embed.post_url}
               accountHandle={embed.account_handle}
@@ -86,7 +122,7 @@ export function InstagramManager({ embeds }: { embeds: InstagramEmbed[] }) {
             <Button
               size="icon"
               variant="destructive"
-              className="absolute right-2 top-2"
+              className="absolute right-2 top-8"
               onClick={() => handleDelete(embed.id)}
               disabled={isPending}
             >

@@ -19,28 +19,28 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="group flex flex-col">
-          <span className="font-[family-name:var(--font-bebas)] text-2xl tracking-wider text-white group-hover:text-primary transition-colors">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6">
+        <Link href="/" className="group flex min-w-0 flex-col">
+          <span className="font-[family-name:var(--font-bebas)] text-xl tracking-wider text-white transition-colors group-hover:text-primary sm:text-2xl">
             {siteConfig.name}
           </span>
-          <span className="hidden text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:block">
+          <span className="hidden truncate text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:block">
             {siteConfig.tagline}
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-0.5 xl:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+              className="rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-primary"
             >
               {link.label}
             </Link>
           ))}
-          <ButtonLink href="/book-tattoo" size="sm" className="ml-2 neon-border">
-            Book Now
+          <ButtonLink href="/services" size="sm" className="ml-2 neon-border">
+            Book
           </ButtonLink>
         </nav>
 
@@ -48,7 +48,7 @@ export function Header() {
           <SheetTrigger
             className={cn(
               buttonVariants({ variant: "ghost", size: "icon" }),
-              "lg:hidden"
+              "xl:hidden"
             )}
             aria-label="Open menu"
           >
@@ -58,19 +58,23 @@ export function Header() {
             <SheetTitle className="font-[family-name:var(--font-bebas)] text-xl tracking-wider">
               Menu
             </SheetTitle>
-            <nav className="mt-8 flex flex-col gap-2">
+            <nav className="mt-8 flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-md px-3 py-3 text-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
+                  className="rounded-md px-3 py-3.5 text-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
                 >
                   {link.label}
                 </Link>
               ))}
-              <ButtonLink href="/book-tattoo" className="mt-4" onClick={() => setOpen(false)}>
-                Book Tattoo
+              <ButtonLink
+                href="/services"
+                className="mt-4"
+                onClick={() => setOpen(false)}
+              >
+                Book / Inquire
               </ButtonLink>
             </nav>
           </SheetContent>

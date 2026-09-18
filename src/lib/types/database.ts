@@ -1,4 +1,8 @@
 export type OrderStatus = "received" | "in_progress" | "completed" | "delivered";
+export type InquiryStatus = "new" | "contacted" | "closed";
+export type ServicePillar = "tattoo" | "art" | "zumba" | "general";
+export type InstagramMediaType = "post" | "reel";
+export type InstagramFeaturedOn = "home" | "tattoo" | "art" | "zumba" | "gallery";
 
 export type PortfolioType =
   | "tattoo"
@@ -83,6 +87,32 @@ export interface TattooBooking {
   created_at: string;
 }
 
+export interface ClassBooking {
+  id: string;
+  booking_number: string;
+  customer_name: string;
+  phone: string;
+  email: string | null;
+  class_type: string;
+  preferred_date: string;
+  preferred_time: string;
+  notes: string | null;
+  status: OrderStatus;
+  created_at: string;
+}
+
+export interface Inquiry {
+  id: string;
+  inquiry_number: string;
+  customer_name: string;
+  phone: string;
+  email: string | null;
+  service_pillar: ServicePillar;
+  message: string;
+  status: InquiryStatus;
+  created_at: string;
+}
+
 export interface Testimonial {
   id: string;
   customer_name: string;
@@ -101,4 +131,6 @@ export interface InstagramEmbed {
   sort_order: number;
   active: boolean;
   created_at: string;
+  media_type?: InstagramMediaType;
+  featured_on?: InstagramFeaturedOn;
 }

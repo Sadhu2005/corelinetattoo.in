@@ -10,6 +10,9 @@ import {
   ShoppingBag,
   MessageSquare,
   LogOut,
+  Inbox,
+  Dumbbell,
+  HelpCircle,
 } from "lucide-react";
 import { InstagramIcon } from "@/components/icons/instagram-icon";
 import { adminLogout } from "@/lib/actions/orders";
@@ -19,8 +22,11 @@ import { cn } from "@/lib/utils";
 
 const adminLinks = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/leads", label: "Leads Inbox", icon: Inbox },
   { href: "/admin/orders", label: "Portrait Orders", icon: ShoppingBag },
   { href: "/admin/bookings", label: "Tattoo Bookings", icon: Calendar },
+  { href: "/admin/classes", label: "Class Bookings", icon: Dumbbell },
+  { href: "/admin/inquiries", label: "Inquiries", icon: HelpCircle },
   { href: "/admin/portfolio", label: "Portfolio", icon: Image },
   { href: "/admin/designs", label: "Tattoo Designs", icon: Palette },
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquare },
@@ -38,14 +44,17 @@ export function AdminNav() {
   }
 
   return (
-    <aside className="flex w-64 flex-col border-r border-border bg-card">
-      <div className="border-b border-border p-6">
-        <Link href="/admin" className="font-[family-name:var(--font-bebas)] text-xl tracking-wider text-primary">
+    <aside className="flex w-56 shrink-0 flex-col border-r border-border bg-card md:w-64">
+      <div className="border-b border-border p-4 md:p-6">
+        <Link
+          href="/admin"
+          className="font-[family-name:var(--font-bebas)] text-xl tracking-wider text-primary"
+        >
           Admin
         </Link>
         <p className="text-xs text-muted-foreground">{siteConfig.name}</p>
       </div>
-      <nav className="flex-1 space-y-1 p-4">
+      <nav className="flex-1 space-y-0.5 overflow-y-auto p-3">
         {adminLinks.map((link) => {
           const Icon = link.icon;
           const active =
@@ -63,7 +72,7 @@ export function AdminNav() {
                   : "text-muted-foreground hover:bg-secondary hover:text-foreground"
               )}
             >
-              <Icon className="h-4 w-4" />
+              <Icon className="h-4 w-4 shrink-0" />
               {link.label}
             </Link>
           );
