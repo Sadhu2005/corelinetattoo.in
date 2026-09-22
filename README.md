@@ -52,7 +52,15 @@ Admin → Instagram → paste post/reel URLs from [@coreline__studios](https://w
 
 ## Deploy
 
-Push to `main` → GitHub CI + Vercel auto-deploy. Set env vars in Vercel (see `.env.example`).
+**Do not use GitHub Pages** — this app needs a Node server (bookings, admin, APIs). Host on **Vercel**.
+
+1. Go to [vercel.com/new](https://vercel.com/new) and import `Sadhu2005/corelinetattoo.in`
+2. Add env vars from `.env.example` (Supabase, WhatsApp, studio name, etc.)
+3. Deploy — Vercel gives you a link like `https://corelinetattoo-in.vercel.app`
+
+GitHub Actions (CI) only runs **lint + build** (green check ≠ live site). Your public URL comes from Vercel.
+
+Push to `main` after Vercel is connected → auto-deploy on every push.
 
 ## Cost
 
