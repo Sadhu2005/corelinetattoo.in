@@ -1,12 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { Phone, MessageCircle, Calendar } from "lucide-react";
+import { Phone, MessageCircle, Sparkles } from "lucide-react";
 import { siteConfig, whatsappUrl, waMessages, telHref } from "@/lib/constants/site";
 
 export function MobileCtaBar() {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden">
       <div className="mx-auto grid max-w-lg grid-cols-3 gap-1 px-2 py-2">
         <a
           href={telHref()}
@@ -24,16 +23,18 @@ export function MobileCtaBar() {
           <MessageCircle className="h-5 w-5" />
           WhatsApp
         </a>
-        <Link
-          href="/services"
+        <a
+          href={whatsappUrl(waMessages.freeTrial())}
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex flex-col items-center justify-center gap-0.5 rounded-lg py-2 text-xs text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
         >
-          <Calendar className="h-5 w-5" />
-          Book
-        </Link>
+          <Sparkles className="h-5 w-5" />
+          Free Trial
+        </a>
       </div>
       <p className="sr-only">
-        Contact {siteConfig.name} by call, WhatsApp, or book a service
+        Contact {siteConfig.name} by call, WhatsApp, or free trial class
       </p>
     </div>
   );

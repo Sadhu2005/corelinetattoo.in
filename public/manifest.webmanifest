@@ -1,11 +1,11 @@
 {
   "name": "Coreline Studio",
   "short_name": "Coreline",
-  "description": "Tattoo, Art & Zumba — book on WhatsApp",
+  "description": "Tattoo, Art, Dance, Karate & Aerobics — book on WhatsApp",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#ff0033",
+  "background_color": "#f5f6f8",
+  "theme_color": "#c4122e",
   "icons": [
     {
       "src": "/icon-192.png",

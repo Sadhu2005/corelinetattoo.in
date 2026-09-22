@@ -18,10 +18,10 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6">
         <Link href="/" className="group flex min-w-0 flex-col">
-          <span className="font-[family-name:var(--font-bebas)] text-xl tracking-wider text-white transition-colors group-hover:text-primary sm:text-2xl">
+          <span className="font-[family-name:var(--font-bebas)] text-xl tracking-wider text-foreground transition-colors group-hover:text-primary sm:text-2xl">
             {siteConfig.name}
           </span>
           <span className="hidden truncate text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:block">

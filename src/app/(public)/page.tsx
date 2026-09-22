@@ -31,7 +31,8 @@ export default async function HomePage() {
     url: siteConfig.url,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Hassan",
+      streetAddress: "'ALPHA', Kenchena Halli Main Road, BEML 5th Stage",
+      addressLocality: "RR Nagar, Bengaluru",
       addressRegion: "Karnataka",
       addressCountry: "IN",
     },
@@ -49,23 +50,24 @@ export default async function HomePage() {
       <InstagramStrip embeds={instagramEmbeds} title="Studio Reels" />
       <RecentWork items={portfolio} />
       <ReviewsTeaser testimonials={testimonials} />
-      <section className="border-t border-border bg-card/40 py-16">
-        <div className="mx-auto max-w-2xl px-4 text-center sm:px-6">
+      <section className="relative overflow-hidden border-t border-border py-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-[#fdecef]/40 to-[#e8eaef]/60" />
+        <div className="relative mx-auto max-w-2xl px-4 text-center sm:px-6">
           <h2 className="font-[family-name:var(--font-bebas)] text-4xl tracking-wide">
-            Ready to start?
+            Take Your Free Trial Class Today
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Book or inquire on WhatsApp. We call back if you need to discuss
-            fees, blood art, or class timings.
+            Or book tattoo & art on WhatsApp. Fees, blood art, and class
+            timings confirmed there — no online payment.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
             <ExternalButtonLink
-              href={whatsappUrl(waMessages.general())}
+              href={whatsappUrl(waMessages.freeTrial())}
               className="neon-border"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Chat on WhatsApp
+              Free Trial Class
             </ExternalButtonLink>
             <ButtonLink href="/services" variant="outline">
               Browse Services

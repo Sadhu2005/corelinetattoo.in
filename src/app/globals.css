@@ -7,7 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-outfit);
   --font-heading: var(--font-bebas);
   --font-mono: var(--font-geist-mono);
   --color-neon: var(--neon);
@@ -49,40 +49,41 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* Light premium — cool pearl surfaces, charcoal type, flyer crimson */
 :root {
-  --background: #0a0a0a;
-  --foreground: #fafafa;
-  --neon: #ff0033;
-  --card: #111111;
-  --card-foreground: #fafafa;
-  --popover: #111111;
-  --popover-foreground: #fafafa;
-  --primary: #ff0033;
+  --background: #f5f6f8;
+  --foreground: #17181c;
+  --neon: #c4122e;
+  --card: #ffffff;
+  --card-foreground: #17181c;
+  --popover: #ffffff;
+  --popover-foreground: #17181c;
+  --primary: #c4122e;
   --primary-foreground: #ffffff;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #fafafa;
-  --muted: #1a1a1a;
-  --muted-foreground: #a3a3a3;
-  --accent: #1a1a1a;
-  --accent-foreground: #ff0033;
-  --destructive: #ff0033;
-  --border: #262626;
-  --input: #262626;
-  --ring: #ff0033;
-  --radius: 0.5rem;
-  --sidebar: #111111;
-  --sidebar-foreground: #fafafa;
-  --sidebar-primary: #ff0033;
+  --secondary: #e8eaef;
+  --secondary-foreground: #17181c;
+  --muted: #eef0f4;
+  --muted-foreground: #5c6370;
+  --accent: #fdecef;
+  --accent-foreground: #9f1239;
+  --destructive: #b91c1c;
+  --border: #dfe3ea;
+  --input: #dfe3ea;
+  --ring: #c4122e;
+  --radius: 0.65rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #17181c;
+  --sidebar-primary: #c4122e;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1a1a1a;
-  --sidebar-accent-foreground: #fafafa;
-  --sidebar-border: #262626;
-  --sidebar-ring: #ff0033;
-  --chart-1: #ff0033;
-  --chart-2: #ff4466;
-  --chart-3: #ff6688;
-  --chart-4: #ff88aa;
-  --chart-5: #ffaacc;
+  --sidebar-accent: #fdecef;
+  --sidebar-accent-foreground: #17181c;
+  --sidebar-border: #dfe3ea;
+  --sidebar-ring: #c4122e;
+  --chart-1: #c4122e;
+  --chart-2: #9f1239;
+  --chart-3: #64748b;
+  --chart-4: #94a3b8;
+  --chart-5: #cbd5e1;
 }
 
 @layer base {
@@ -92,6 +93,11 @@
   body {
     @apply bg-background text-foreground antialiased;
     padding-bottom: env(safe-area-inset-bottom);
+    background-image:
+      radial-gradient(ellipse 90% 55% at 50% -15%, rgba(196, 18, 46, 0.07), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 100% 0%, rgba(100, 116, 139, 0.1), transparent 50%),
+      linear-gradient(180deg, #f8f9fb 0%, #f5f6f8 40%, #eef1f5 100%);
+    background-attachment: fixed;
   }
   html {
     @apply scroll-smooth;
@@ -100,10 +106,13 @@
 
 @layer utilities {
   .text-glow {
-    text-shadow: 0 0 20px rgba(255, 0, 51, 0.5);
+    text-shadow: none;
   }
   .neon-border {
-    box-shadow: 0 0 15px rgba(255, 0, 51, 0.3);
+    box-shadow: 0 10px 28px -10px rgba(196, 18, 46, 0.4);
+  }
+  .surface-soft {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.82));
   }
   .masonry {
     columns: 2;

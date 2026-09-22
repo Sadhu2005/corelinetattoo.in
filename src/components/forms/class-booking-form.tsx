@@ -8,7 +8,7 @@ import {
   classBookingSchema,
   type ClassBookingInput,
 } from "@/lib/validations/forms";
-import { classTypes, timeSlots, siteConfig } from "@/lib/constants/site";
+import { classTypes, timeSlots } from "@/lib/constants/site";
 import { submitClassBooking } from "@/lib/actions/orders";
 import { ExternalButtonLink, ButtonLink } from "@/components/ui/button-link";
 import { Button } from "@/components/ui/button";
@@ -94,7 +94,7 @@ export function ClassBookingForm({
             Confirm on WhatsApp
           </ExternalButtonLink>
           <ButtonLink href="/zumba" variant="ghost" className="mt-2">
-            Back to Zumba
+            Back to Classes
           </ButtonLink>
         </CardContent>
       </Card>
@@ -107,11 +107,11 @@ export function ClassBookingForm({
     <Card className="mx-auto max-w-2xl border-border">
       <CardHeader>
         <CardTitle className="font-[family-name:var(--font-bebas)] text-3xl tracking-wide">
-          Book a Class
+          Book / Free Trial Class
         </CardTitle>
         <CardDescription>
-          Zumba & dance at {siteConfig.name}. We confirm fees and timing on
-          WhatsApp — no checkout on this site.
+          Dance, karate, aerobics & Zumba, or art classes at RR Nagar CELLAR.
+          Free trial available — fees & timing confirmed on WhatsApp.
         </CardDescription>
       </CardHeader>
       <CardContent>

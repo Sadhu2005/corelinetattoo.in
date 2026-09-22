@@ -1,49 +1,67 @@
 import { ButtonLink } from "@/components/ui/button-link";
+import { PageHero } from "@/components/layout/page-hero";
 import { PortraitPricing } from "@/components/forms/portrait-pricing";
 import { InstagramStrip } from "@/components/instagram/instagram-strip";
 import { getInstagramEmbeds } from "@/lib/data/queries";
-import { siteConfig } from "@/lib/constants/site";
+import { siteConfig, servicePillars, studioImages } from "@/lib/constants/site";
 
 export const metadata = {
-  title: "Drawing & Art",
-  description: `Blood art, pencil sketches & color portraits at ${siteConfig.name}. Order online — discuss on WhatsApp.`,
+  title: "Art Works",
+  description: `Blood art, pencil sketches, portrait & wall painting at ${siteConfig.name}. Delivered across India.`,
 };
 
 export default async function ArtHubPage() {
   const embeds = await getInstagramEmbeds("art");
+  const pillar = servicePillars.find((p) => p.id === "art")!;
 
   return (
     <div>
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <p className="text-xs uppercase tracking-[0.25em] text-primary">
-          Drawing & art
+      <PageHero
+        image={studioImages.art}
+        eyebrow="Art works"
+        title="Art Works"
+        description="Turn special ideas into custom blood art and pencil sketches — perfect personal gifts. Expertly crafted and safely delivered across India."
+      >
+        <ul className="grid gap-2 sm:grid-cols-2 lg:max-w-3xl lg:grid-cols-3">
+          {pillar.items.map((item) => (
+            <li
+              key={item}
+              className="rounded-xl border border-border bg-white/90 px-4 py-3 text-sm shadow-sm"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-sm text-muted-foreground">
+          Instagram:{" "}
+          <a
+            href="https://www.instagram.com/_ashwath_art_gowda_/"
+            className="text-primary hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @_ashwath_art_gowda_
+          </a>
         </p>
-        <h1 className="mt-3 font-[family-name:var(--font-bebas)] text-5xl tracking-wide sm:text-6xl">
-          Portraits & Paintings
-        </h1>
-        <p className="mt-4 max-w-xl text-muted-foreground">
-          Blood art, pencil sketches and color canvases. Listed prices are
-          guidance — confirm framing, courier and blood-tube details on WhatsApp.
-          No online payment.
-        </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <ButtonLink href="/art/order" className="neon-border">
-            Order Portrait
+            Order Art
           </ButtonLink>
           <ButtonLink href="/gallery" variant="outline">
-            Art Gallery
+            Gallery
           </ButtonLink>
           <ButtonLink href="/zumba/inquire?pillar=art" variant="ghost">
             Inquire
           </ButtonLink>
         </div>
-      </section>
+      </PageHero>
       <div className="px-4 sm:px-6">
         <PortraitPricing />
       </div>
       <InstagramStrip
         embeds={embeds.length ? embeds : await getInstagramEmbeds("home")}
         title="Art on IG"
+        accountUrl="https://www.instagram.com/_ashwath_art_gowda_/"
       />
     </div>
   );

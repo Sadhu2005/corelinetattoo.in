@@ -4,7 +4,8 @@ import type { InquiryInput } from "@/lib/validations/forms";
 
 export const metadata = {
   title: "Inquire",
-  description: "Ask about tattoo, art, or Zumba. We reply on WhatsApp or call you.",
+  description:
+    "Ask about tattoo, art, dance, karate, Zumba, or free trial. We reply on WhatsApp or call you.",
 };
 
 function InquireInner({

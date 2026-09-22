@@ -2,111 +2,158 @@ export const siteConfig = {
   name: process.env.NEXT_PUBLIC_STUDIO_NAME ?? "Coreline Studio",
   tagline:
     process.env.NEXT_PUBLIC_STUDIO_TAGLINE ??
-    "From Imagination to Skin & Canvas",
+    "Studio of Tattoo | Art | Dance | Karate | Aerobics",
   description:
-    "Coreline Studio — tattoos, custom portraits & drawings, and Zumba dance classes in Karnataka. Book or inquire on WhatsApp.",
+    "Coreline Studio Bengaluru — tattoos & piercings, blood art & portraits, classical & western dance, Shotokan karate, aerobics & Zumba. Book or free trial on WhatsApp.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://corelinetattoo.in.vercel.app",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "918494958165",
   phone: process.env.NEXT_PUBLIC_PHONE ?? "+91 84949 58165",
+  /** All studio WhatsApp / call numbers from flyer */
+  phones: [
+    { label: "WhatsApp 1", number: "8494958165", wa: "918494958165" },
+    { label: "WhatsApp 2", number: "6361627945", wa: "916361627945" },
+    { label: "WhatsApp 3", number: "9008710265", wa: "919008710265" },
+  ] as const,
   email: process.env.NEXT_PUBLIC_EMAIL ?? "hello@corelinetattoo.in",
-  address: process.env.NEXT_PUBLIC_ADDRESS ?? "Hassan & Bengaluru, Karnataka, India",
+  address:
+    process.env.NEXT_PUBLIC_ADDRESS ??
+    "'ALPHA', Kenchena Halli Main Road, BEML 5th Stage, Near The Nachiyar Cafe, RR Nagar (Double Road), Bengaluru — CELLAR",
+  addressShort: "RR Nagar, Bengaluru",
+  /** Google Maps place — Coreline Studio (dance school listing) */
+  googleMapsUrl:
+    process.env.NEXT_PUBLIC_GOOGLE_MAPS_URL ??
+    "https://www.google.com/maps?ftid=0x3bae3f0002feeeed:0xd7a2871dc90e8c36",
   googleMapsEmbed:
     process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED ??
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.0!2d76.6394!3d12.2958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDE3JzQ0LjkiTiA3NsKwMzgnMjEuOCJF!5e0!3m2!1sen!2sin!4v1",
+    "https://www.google.com/maps?ftid=0x3bae3f0002feeeed:0xd7a2871dc90e8c36&output=embed",
 } as const;
 
-/** Service pillars for Coreline Studio */
+/** Flyer service pillars — Tattoo, Art, Classes */
 export const servicePillars = [
   {
     id: "tattoo",
-    title: "Tattoo",
+    title: "Tattoo Studio",
     href: "/tattoo",
-    short: "Custom ink, designs & sessions",
+    short: "Custom ink · piercings · all India",
     description:
-      "Minimal, anime, religious, sleeves and custom tattoos. Book a session — pricing finalized on WhatsApp.",
+      "Custom tattoos, flash, cover-ups & touch-ups, body piercings. Safe, hygienic work with expert precision. Book a consultation on WhatsApp.",
     cta: "Book Tattoo",
     ctaHref: "/tattoo/book",
+    items: [
+      "Custom Tattoos",
+      "Flash Tattoos",
+      "Cover-ups & Touch-ups",
+      "Body Piercings",
+    ],
+    instagram: "@coreline_art_tattoos",
+    image: "/images/service-tattoo.jpg",
   },
   {
     id: "art",
-    title: "Drawing & Art",
+    title: "Art Works",
     href: "/art",
-    short: "Blood art, sketches & paintings",
+    short: "Blood art · sketches · canvas",
     description:
-      "Blood art, pencil sketches and color portraits. Order online — courier available. Discuss details on WhatsApp.",
-    cta: "Order Portrait",
+      "Blood art, pencil sketches, portrait & wall painting, creative canvas. Perfect gifts — delivered across India. Order on WhatsApp.",
+    cta: "Order Art",
     ctaHref: "/art/order",
+    items: [
+      "Blood Art",
+      "Pencil Sketch",
+      "Portrait Painting",
+      "Wall Painting",
+      "Creative Canvas Painting",
+    ],
+    instagram: "@_ashwath_art_gowda_",
+    image: "/images/service-art.jpg",
   },
   {
     id: "zumba",
-    title: "Zumba & Dance",
+    title: "Classes & Studio",
     href: "/zumba",
-    short: "Fitness dance classes",
+    short: "Dance · karate · Zumba · art",
     description:
-      "Zumba and dance fitness classes. Book a spot or inquire — fees and timings confirmed on WhatsApp.",
-    cta: "Book Class",
+      "Classical dance, western dance, Shotokan karate, aerobics & Zumba, art & drawing classes. Free trial available — book on WhatsApp.",
+    cta: "Free Trial Class",
     ctaHref: "/zumba/book",
+    items: [
+      "Classical Dance",
+      "Western Dance",
+      "Shotokan Karate",
+      "Aerobics & Zumba",
+      "Art & Drawing",
+    ],
+    instagram: "@coreline__studios",
+    image: "/images/service-classes.jpg",
   },
 ] as const;
+
+export const studioImages = {
+  hero: "/images/hero-studio.jpg",
+  flyer: "/images/flyer.jpg",
+  tattoo: "/images/service-tattoo.jpg",
+  art: "/images/service-art.jpg",
+  classes: "/images/service-classes.jpg",
+} as const;
 
 export type ServicePillarId = (typeof servicePillars)[number]["id"];
 
-/** Display-only Zumba / dance offerings (fees discussed on WhatsApp) */
-export const zumbaClasses = [
+/** All bookable class types from flyer */
+export const studioClasses = [
   {
-    id: "zumba-morning",
-    name: "Zumba Morning Batch",
+    id: "classical-dance",
+    name: "Classical Dance",
+    category: "Dance",
     level: "All levels",
-    schedule: "Mon · Wed · Fri — 7:00 AM",
+    schedule: "Batches on request",
     duration: "45–60 min",
-    feeNote: "Monthly fee on request",
+    feeNote: "Free trial available — confirm on WhatsApp",
   },
   {
-    id: "zumba-evening",
-    name: "Zumba Evening Batch",
+    id: "western-dance",
+    name: "Western Dance",
+    category: "Dance",
     level: "All levels",
-    schedule: "Mon · Wed · Fri — 6:30 PM",
+    schedule: "Batches on request",
     duration: "45–60 min",
-    feeNote: "Monthly fee on request",
+    feeNote: "Free trial available — confirm on WhatsApp",
   },
   {
-    id: "dance-fitness",
-    name: "Dance Fitness",
-    level: "Beginner friendly",
-    schedule: "Tue · Thu — 6:00 PM",
-    duration: "45 min",
-    feeNote: "Trial class available — ask on WhatsApp",
-  },
-  {
-    id: "weekend-zumba",
-    name: "Weekend Zumba",
+    id: "shotokan-karate",
+    name: "Shotokan Karate",
+    category: "Martial Arts",
     level: "All levels",
-    schedule: "Saturday — 9:00 AM",
-    duration: "60 min",
-    feeNote: "Drop-in option — ask on WhatsApp",
+    schedule: "Batches on request",
+    duration: "45–60 min",
+    feeNote: "Free trial available — confirm on WhatsApp",
+  },
+  {
+    id: "aerobics-zumba",
+    name: "Aerobics & Zumba",
+    category: "Fitness",
+    level: "All levels",
+    schedule: "Batches on request",
+    duration: "45–60 min",
+    feeNote: "Free trial available — confirm on WhatsApp",
+  },
+  {
+    id: "art-drawing",
+    name: "Art & Drawing Classes",
+    category: "Art",
+    level: "Kids & adults",
+    schedule: "Batches on request",
+    duration: "45–60 min",
+    feeNote: "Free trial available — confirm on WhatsApp",
   },
 ] as const;
 
-/** Weekly schedule for Premium UI */
+/** @deprecated use studioClasses — kept for imports */
+export const zumbaClasses = studioClasses;
+
 export const zumbaWeeklySchedule = [
-  { day: "Monday", slots: ["7:00 AM Zumba", "6:30 PM Zumba"] },
-  { day: "Tuesday", slots: ["6:00 PM Dance Fitness"] },
-  { day: "Wednesday", slots: ["7:00 AM Zumba", "6:30 PM Zumba"] },
-  { day: "Thursday", slots: ["6:00 PM Dance Fitness"] },
-  { day: "Friday", slots: ["7:00 AM Zumba", "6:30 PM Zumba"] },
-  { day: "Saturday", slots: ["9:00 AM Weekend Zumba"] },
-  { day: "Sunday", slots: ["Rest / private sessions on request"] },
+  { day: "Monday–Saturday", slots: ["Classical Dance", "Western Dance", "Karate", "Aerobics & Zumba", "Art & Drawing"] },
+  { day: "Sunday", slots: ["Special / private sessions on request"] },
 ] as const;
-
-/** Placeholder IG URLs — replace in Admin with real @coreline__studios reels */
-export const seedInstagramUrls = [
-  {
-    post_url: "https://www.instagram.com/coreline__studios/",
-    account_handle: "coreline__studios",
-    media_type: "reel" as const,
-    featured_on: "home" as const,
-  },
-];
 
 export const bloodArtNote =
   "For blood art portraits, please provide 5ml blood in a purple tube. We will guide you on collection after you order via WhatsApp.";
@@ -159,27 +206,36 @@ export const portraitProducts = [
   },
   {
     id: "color-portrait",
-    label: "Color Painting Portrait (canvas paint)",
+    label: "Portrait Painting (canvas)",
     priceInr: 8000,
-    style: "Color Painting",
+    style: "Portrait Painting",
     size: "Standard",
     frame: "Canvas",
     isBloodArt: false,
   },
   {
     id: "color-portrait-couple",
-    label: "Color Painting — Couple portrait (canvas paint)",
+    label: "Portrait Painting — Couple (canvas)",
     priceInr: 16000,
-    style: "Color Painting",
+    style: "Portrait Painting",
     size: "Couple",
     frame: "Canvas",
     isBloodArt: false,
   },
   {
-    id: "custom-creative",
-    label: "Custom Creative Painting — discuss on WhatsApp",
+    id: "wall-painting",
+    label: "Wall Painting — discuss on WhatsApp",
     priceInr: null,
-    style: "Custom Creative",
+    style: "Wall Painting",
+    size: "Custom",
+    frame: "As discussed",
+    isBloodArt: false,
+  },
+  {
+    id: "custom-creative",
+    label: "Creative Canvas Painting — discuss on WhatsApp",
+    priceInr: null,
+    style: "Creative Canvas Painting",
     size: "Custom",
     frame: "As discussed",
     isBloodArt: false,
@@ -188,17 +244,17 @@ export const portraitProducts = [
 
 export const courierAddresses = [
   {
-    city: "Bengaluru",
-    contact: "Ashwath HM",
+    city: "Bengaluru (Studio)",
+    contact: "Coreline Studio",
     phone: "+91 84949 58165",
     lines: [
-      "Gnana Bharati, Bengaluru University",
-      "PG 3, Bengaluru",
-      "PIN 560056, Karnataka",
+      "'ALPHA', Kenchena Halli Main Road",
+      "BEML 5th Stage, Near The Nachiyar Cafe",
+      "RR Nagar (Double Road), Bengaluru — CELLAR",
     ],
   },
   {
-    city: "Hassan",
+    city: "Hassan (Courier)",
     contact: "Ashwath HM",
     phone: "+91 84949 58165",
     lines: [
@@ -224,14 +280,14 @@ export const instagramAccounts = [
     label: "Coreline Studio",
   },
   {
-    handle: "coreline_art_and_tattoo",
-    url: "https://www.instagram.com/coreline_art_and_tattoo/",
-    label: "Coreline Art & Tattoo",
+    handle: "coreline_art_tattoos",
+    url: "https://www.instagram.com/coreline_art_tattoos/",
+    label: "Tattoo Studio",
   },
   {
     handle: "_ashwath_art_gowda_",
     url: "https://www.instagram.com/_ashwath_art_gowda_/",
-    label: "Ashwath Artist",
+    label: "Art Works",
   },
 ] as const;
 
@@ -240,7 +296,7 @@ export const navLinks = [
   { href: "/services", label: "Services" },
   { href: "/tattoo", label: "Tattoo" },
   { href: "/art", label: "Art" },
-  { href: "/zumba", label: "Zumba" },
+  { href: "/zumba", label: "Classes" },
   { href: "/gallery", label: "Gallery" },
   { href: "/reviews", label: "Reviews" },
   { href: "/contact", label: "Contact" },
@@ -249,8 +305,9 @@ export const navLinks = [
 export const portraitStyles = [
   "Blood Art",
   "Pencil Sketch",
-  "Color Painting",
-  "Custom Creative",
+  "Portrait Painting",
+  "Wall Painting",
+  "Creative Canvas Painting",
 ] as const;
 
 export const portraitSizes = ["A3", "A2", "Couple", "Standard", "Custom"] as const;
@@ -265,16 +322,18 @@ export const tattooSizes = [
   "Large (6+ inch)",
   "Half Sleeve",
   "Full Sleeve",
+  "Piercing",
 ] as const;
 
 export const tattooStyles = [
+  "Custom Tattoo",
+  "Flash Tattoo",
+  "Cover-up / Touch-up",
+  "Body Piercing",
   "Minimal",
   "Anime",
-  "Realism",
-  "Traditional",
   "Religious",
   "Tribal",
-  "Custom",
 ] as const;
 
 export const tattooCategories = [
@@ -300,13 +359,16 @@ export const timeSlots = [
   "5:00 PM",
   "6:00 PM",
   "6:30 PM",
+  "7:00 PM",
 ] as const;
 
 export const classTypes = [
-  "Zumba Morning Batch",
-  "Zumba Evening Batch",
-  "Dance Fitness",
-  "Weekend Zumba",
+  "Classical Dance",
+  "Western Dance",
+  "Shotokan Karate",
+  "Aerobics & Zumba",
+  "Art & Drawing Classes",
+  "Free Trial Class",
   "Other / Private",
 ] as const;
 
@@ -323,19 +385,21 @@ export const inquiryStatuses = [
   { value: "closed", label: "Closed" },
 ] as const;
 
-export function whatsappUrl(message: string) {
-  const encoded = encodeURIComponent(message);
-  return `https://wa.me/${siteConfig.whatsapp}?text=${encoded}`;
+export function whatsappUrl(message: string, waNumber?: string) {
+  const num = waNumber ?? siteConfig.whatsapp;
+  return `https://wa.me/${num}?text=${encodeURIComponent(message)}`;
 }
 
-export function telHref() {
-  return `tel:${siteConfig.phone.replace(/\s/g, "")}`;
+export function telHref(phone?: string) {
+  const p = phone ?? siteConfig.phone;
+  return `tel:${p.replace(/\s/g, "")}`;
 }
 
-/** Unified WhatsApp message templates — no payment language */
 export const waMessages = {
   general: () =>
-    `Hi ${siteConfig.name}! I'd like to know more about your services (Tattoo / Art / Zumba).`,
+    `Hi ${siteConfig.name}! I'd like to know more about Tattoo / Art / Dance / Karate / Zumba.`,
+  freeTrial: () =>
+    `Hi ${siteConfig.name}! I want to take a FREE TRIAL CLASS at RR Nagar studio.\n\nPlease share available batches.`,
   tattooBook: (data: {
     name: string;
     phone: string;
@@ -346,10 +410,10 @@ export const waMessages = {
     style: string;
     bookingNumber?: string;
   }) =>
-    `Hi ${siteConfig.name}! I want to book a tattoo session.\n\n` +
+    `Hi ${siteConfig.name}! Tattoo / piercing booking.\n\n` +
     `${data.bookingNumber ? `Booking: ${data.bookingNumber}\n` : ""}` +
     `Name: ${data.name}\nPhone: ${data.phone}\nDate: ${data.date}\nTime: ${data.time}\n` +
-    `Placement: ${data.placement}\nSize: ${data.size}\nStyle: ${data.style}\n\nPlease confirm details on WhatsApp.`,
+    `Placement: ${data.placement}\nSize: ${data.size}\nStyle: ${data.style}\n\nPlease confirm on WhatsApp.`,
   artOrder: (data: {
     name: string;
     phone: string;
@@ -359,7 +423,7 @@ export const waMessages = {
     delivery: string;
     orderNumber?: string;
   }) =>
-    `Hi ${siteConfig.name}! I want to order a portrait.\n\n` +
+    `Hi ${siteConfig.name}! Art order.\n\n` +
     `${data.orderNumber ? `Order: ${data.orderNumber}\n` : ""}` +
     `Name: ${data.name}\nPhone: ${data.phone}\nStyle: ${data.style}\n` +
     `Size: ${data.size}\nFrame: ${data.frame}\nDelivery: ${data.delivery}\n\nPlease confirm on WhatsApp.`,
@@ -371,10 +435,10 @@ export const waMessages = {
     time: string;
     bookingNumber?: string;
   }) =>
-    `Hi ${siteConfig.name}! I want to book a Zumba / dance class.\n\n` +
+    `Hi ${siteConfig.name}! Class booking / free trial.\n\n` +
     `${data.bookingNumber ? `Booking: ${data.bookingNumber}\n` : ""}` +
     `Name: ${data.name}\nPhone: ${data.phone}\nClass: ${data.classType}\n` +
-    `Preferred date: ${data.date}\nTime: ${data.time}\n\nPlease confirm fees & seat on WhatsApp.`,
+    `Preferred date: ${data.date}\nTime: ${data.time}\n\nStudio: RR Nagar CELLAR. Please confirm.`,
   inquire: (data: {
     name: string;
     phone: string;

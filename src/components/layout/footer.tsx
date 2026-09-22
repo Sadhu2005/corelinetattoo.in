@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 
 export function Footer() {
   return (
-    <footer className="mt-auto border-t border-border bg-card">
+    <footer className="mt-auto border-t border-border bg-white/80">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         <div className="grid gap-8 md:grid-cols-3">
           <div>
@@ -21,7 +21,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground">
               Quick Links
             </h4>
             <ul className="mt-4 space-y-2">
@@ -29,7 +29,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {link.label}
                   </Link>
@@ -39,7 +39,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground">
               Follow Us
             </h4>
             <div className="mt-4 flex flex-col gap-3">
@@ -49,7 +49,7 @@ export function Footer() {
                   href={account.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
                   <InstagramIcon className="h-4 w-4" />
                   @{account.handle}
@@ -65,7 +65,7 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
-          <p>Tattoo Artist Mysore · Portrait Artist Karnataka</p>
+          <p>Tattoo · Art · Dance · Karate · Aerobics · RR Nagar CELLAR</p>
         </div>
       </div>
     </footer>

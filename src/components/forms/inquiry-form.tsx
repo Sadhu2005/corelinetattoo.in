@@ -103,8 +103,8 @@ export function InquiryForm({
           Inquire / Request a Call
         </CardTitle>
         <CardDescription>
-          Ask about tattoo, art, or Zumba. We reply on WhatsApp or call you —
-          no online payment.
+          Ask about tattoo, art, dance, karate, Zumba, or free trial. We reply
+          on WhatsApp or call — no online payment.
         </CardDescription>
       </CardHeader>
       <CardContent>

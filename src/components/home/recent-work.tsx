@@ -19,7 +19,7 @@ export function RecentWork({ items }: RecentWorkProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex items-end justify-between">
           <div>
-            <h2 className="font-[family-name:var(--font-bebas)] text-4xl tracking-wide text-white">
+            <h2 className="font-[family-name:var(--font-bebas)] text-4xl tracking-wide text-foreground">
               Recent Works
             </h2>
             <p className="mt-2 text-muted-foreground">

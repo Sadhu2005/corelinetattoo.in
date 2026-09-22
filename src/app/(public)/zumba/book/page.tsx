@@ -2,8 +2,9 @@ import { Suspense } from "react";
 import { ClassBookingForm } from "@/components/forms/class-booking-form";
 
 export const metadata = {
-  title: "Book Zumba Class",
-  description: "Book a Zumba or dance class. Confirm on WhatsApp — no online payment.",
+  title: "Book / Free Trial Class",
+  description:
+    "Book classical or western dance, Shotokan karate, aerobics & Zumba, or art classes. Free trial — confirm on WhatsApp.",
 };
 
 function BookForm({ className }: { className?: string }) {

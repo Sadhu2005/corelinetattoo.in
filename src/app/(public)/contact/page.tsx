@@ -13,11 +13,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const metadata = {
   title: "Contact",
-  description: `Contact ${siteConfig.name} for tattoo, art & Zumba. WhatsApp, call, courier addresses.`,
+  description: `Contact ${siteConfig.name} — tattoo, art, dance, karate & Zumba at RR Nagar CELLAR. WhatsApp, call, free trial.`,
 };
 
 export default function ContactPage() {
   const wa = whatsappUrl(waMessages.general());
+  const trial = whatsappUrl(waMessages.freeTrial());
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
@@ -26,39 +27,61 @@ export default function ContactPage() {
           Get In Touch
         </h1>
         <p className="mt-4 text-muted-foreground">
-          Book or inquire on WhatsApp. Call if you prefer. No online payments —
-          we discuss the next steps together.
+          RR Nagar CELLAR · Tattoo · Art · Dance · Karate · Aerobics. Book or
+          free trial on WhatsApp — no online payments.
         </p>
       </div>
 
       <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:justify-center">
-        <ExternalButtonLink href={wa} className="neon-border" target="_blank" rel="noopener noreferrer">
+        <ExternalButtonLink
+          href={trial}
+          className="neon-border"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Free Trial Class
+        </ExternalButtonLink>
+        <ExternalButtonLink href={wa} variant="outline" target="_blank" rel="noopener noreferrer">
           <MessageCircle className="mr-2 h-4 w-4" />
           WhatsApp
-        </ExternalButtonLink>
-        <ExternalButtonLink href={telHref()} variant="outline">
-          <Phone className="mr-2 h-4 w-4" />
-          Call {siteConfig.phone}
         </ExternalButtonLink>
         <ButtonLink href="/services" variant="ghost">
           Book a service
         </ButtonLink>
       </div>
 
-      <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="border-border">
-          <CardContent className="flex flex-col items-center p-6 text-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366]/20">
-              <MessageCircle className="h-6 w-6 text-[#25D366]" />
-            </div>
-            <h3 className="mt-4 font-semibold">WhatsApp</h3>
-            <p className="mt-2 text-sm text-muted-foreground">Fastest for booking</p>
-            <ExternalButtonLink href={wa} className="mt-4" size="sm" target="_blank" rel="noopener noreferrer">
-              Chat Now
-            </ExternalButtonLink>
-          </CardContent>
-        </Card>
+      <div className="mt-12">
+        <h2 className="text-center font-[family-name:var(--font-bebas)] text-3xl tracking-wide">
+          Call / WhatsApp
+        </h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {siteConfig.phones.map((p) => (
+            <Card key={p.number} className="border-border">
+              <CardContent className="flex flex-col items-center gap-3 p-6 text-center">
+                <Phone className="h-8 w-8 text-primary" />
+                <a
+                  href={telHref(`+91 ${p.number}`)}
+                  className="text-lg font-medium hover:text-primary"
+                >
+                  {p.number}
+                </a>
+                <ExternalButtonLink
+                  href={whatsappUrl(waMessages.general(), p.wa)}
+                  size="sm"
+                  className="w-full"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="mr-2 h-4 w-4" />
+                  WhatsApp
+                </ExternalButtonLink>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
 
+      <div className="mt-12 grid gap-6 md:grid-cols-3">
         <Card className="border-border">
           <CardContent className="flex flex-col items-center p-6 text-center">
             <InstagramIcon className="h-12 w-12 text-primary" />
@@ -81,11 +104,9 @@ export default function ContactPage() {
 
         <Card className="border-border">
           <CardContent className="flex flex-col items-center p-6 text-center">
-            <Phone className="h-12 w-12 text-primary" />
-            <h3 className="mt-4 font-semibold">Phone</h3>
-            <a href={telHref()} className="mt-2 text-sm text-muted-foreground hover:text-primary">
-              {siteConfig.phone}
-            </a>
+            <MapPin className="h-12 w-12 text-primary" />
+            <h3 className="mt-4 font-semibold">Studio</h3>
+            <p className="mt-2 text-sm text-muted-foreground">{siteConfig.address}</p>
             <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
               <Mail className="h-4 w-4" />
               <a href={`mailto:${siteConfig.email}`} className="hover:text-primary">
@@ -131,17 +152,34 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="mt-12 overflow-hidden rounded-lg border border-border">
-        <iframe
-          src={siteConfig.googleMapsEmbed}
-          width="100%"
-          height="400"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Studio location"
-        />
+      <div className="mt-12">
+        <div className="mb-4 flex flex-col items-center justify-between gap-3 sm:flex-row">
+          <h2 className="font-[family-name:var(--font-bebas)] text-3xl tracking-wide">
+            Find Us
+          </h2>
+          <ExternalButtonLink
+            href={siteConfig.googleMapsUrl}
+            variant="outline"
+            size="sm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <MapPin className="mr-2 h-4 w-4" />
+            Open in Google Maps
+          </ExternalButtonLink>
+        </div>
+        <div className="overflow-hidden rounded-lg border border-border">
+          <iframe
+            src={siteConfig.googleMapsEmbed}
+            width="100%"
+            height="400"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Coreline Studio — RR Nagar CELLAR"
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Inter } from "next/font/google";
+import { Bebas_Neue, Outfit } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/lib/constants/site";
 import "./globals.css";
@@ -10,26 +10,28 @@ const bebas = Bebas_Neue({
   variable: "--font-bebas",
 });
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-outfit",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | Tattoo · Art · Zumba Karnataka`,
+    default: `${siteConfig.name} | Tattoo · Art · Dance · Karate · Aerobics`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
     "Coreline Studio",
-    "Tattoo Artist Hassan",
-    "Tattoo Artist Bengaluru",
-    "Zumba Classes Karnataka",
-    "Portrait Artist Karnataka",
+    "Tattoo Studio Bengaluru",
+    "Tattoo RR Nagar",
     "Blood Art Portrait India",
-    "Dance Fitness Hassan",
+    "Classical Dance Bengaluru",
+    "Western Dance RR Nagar",
+    "Shotokan Karate Bengaluru",
+    "Aerobics Zumba RR Nagar",
+    "Portrait Artist Karnataka",
   ],
   manifest: "/manifest.webmanifest",
   openGraph: {
@@ -49,7 +51,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: siteConfig.name,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
   },
 };
 
@@ -62,9 +64,9 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${bebas.variable} ${inter.variable} dark`}
+      className={`${bebas.variable} ${outfit.variable}`}
     >
-      <body className="min-h-screen font-[family-name:var(--font-inter)] antialiased">
+      <body className="min-h-screen font-[family-name:var(--font-outfit)] antialiased">
         {children}
         <Toaster richColors position="top-center" />
       </body>
