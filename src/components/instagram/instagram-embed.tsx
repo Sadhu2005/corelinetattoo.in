@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { InstagramIcon } from "@/components/icons/instagram-icon";
-import { Card, CardContent } from "@/components/ui/card";
 
 interface InstagramEmbedProps {
   postUrl: string;
@@ -31,52 +30,33 @@ function loadInstagramEmbedScript() {
 
 export function InstagramEmbed({ postUrl, accountHandle }: InstagramEmbedProps) {
   const ref = useRef<HTMLQuoteElement>(null);
-  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    try {
-      loadInstagramEmbedScript();
-      const t = window.setTimeout(() => {
-        if (ref.current && !ref.current.querySelector("iframe")) {
-          setFailed(true);
-        }
-      }, 8000);
-      return () => window.clearTimeout(t);
-    } catch {
-      setFailed(true);
-    }
+    loadInstagramEmbedScript();
   }, [postUrl]);
 
-  if (failed) {
-    return (
-      <Card className="border-border">
-        <CardContent className="flex flex-col items-center justify-center p-8 text-center">
-          <InstagramIcon className="h-8 w-8 text-primary" />
-          <p className="mt-4 text-sm text-muted-foreground">View on Instagram</p>
-          <a
-            href={postUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 text-sm text-primary hover:underline"
-          >
-            @{accountHandle ?? "instagram"}
-          </a>
-        </CardContent>
-      </Card>
-    );
-  }
-
   return (
-    <blockquote
-      ref={ref}
-      className="instagram-media mx-auto w-full max-w-lg overflow-hidden rounded-lg border border-border bg-card"
-      data-instgrm-permalink={postUrl}
-      data-instgrm-version="14"
-      style={{ minHeight: 420 }}
-    >
-      <a href={postUrl} target="_blank" rel="noopener noreferrer" className="sr-only">
-        View post on Instagram
+    <div className="space-y-3">
+      <blockquote
+        ref={ref}
+        className="instagram-media mx-auto w-full max-w-lg overflow-hidden rounded-lg border border-border bg-card"
+        data-instgrm-permalink={postUrl}
+        data-instgrm-version="14"
+        style={{ minHeight: 420 }}
+      >
+        <a href={postUrl} target="_blank" rel="noopener noreferrer" className="sr-only">
+          View post on Instagram
+        </a>
+      </blockquote>
+      <a
+        href={postUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+      >
+        <InstagramIcon className="h-4 w-4" />
+        @{accountHandle ?? "instagram"}
       </a>
-    </blockquote>
+    </div>
   );
 }
